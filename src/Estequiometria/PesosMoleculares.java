@@ -15,7 +15,7 @@ public class PesosMoleculares {
 	private void inicializarTabla(){
 		
 		//El primero no va
-		this.elementos2.add(0, new Elemento("PAOLA","Paola", 1.00797));
+		this.elementos2.add(0, new Elemento(null,null, 0.0));
 		this.elementos2.add(1, new Elemento("H","HIDROGENO", 1.00797));
 		this.elementos2.add(2, new Elemento("He","HELIO", 4.0026));
 		this.elementos2.add(3, new Elemento("Li","LITIO", 6.939));
@@ -60,13 +60,26 @@ public class PesosMoleculares {
 	}
 	
 	
-	//Obtener el nombre del Elemento a partir del numero atomico.
+	/***************************************************
+	* Post: Devuelve el nombre del elemento a partir del numero atomico.
+	* 
+	* @Param numAtomico: numero entero perteneciente a uno de los elementos de la tabla
+	* 						periodica.
+	*
+	***************************************************/
 	public String getElemento(int numAtomico){
+		
 		return this.elementos2.get(numAtomico).getNombre();
 	}
 	
-	//Obtener el numero masico a partir del simbolo.
-	public double getNumMasico(String simbolo){
+	
+	/***************************************************
+	* Post: Devuelve el numero masico del elemento al cual pertenece el simbolo.
+	* 
+	* @Param simbolo: Elemento de la tabla periodica.
+	*
+	***************************************************/
+	private double getNumMasico(String simbolo){
 		
 		double numMasico =0;
 	
@@ -87,68 +100,103 @@ public class PesosMoleculares {
 		return numMasico;
 	}
 	
-	//Suma moleculas del tipo NLN (numero letra numero)
-	public double sumarUnElemento(String elemento){
-		
-		double resultado = 0.0;
-		
-		//Transformo el String que me pasaron en un array de Char
-		char[] caracter = elemento.toCharArray();
-		
-		List<Character> letras = new LinkedList<Character>();
-		List<Double> numeros = new LinkedList<Double>();
-		
-		int i = 0;
-		
-		//Separo las letras de los numeros en dos listas distintas.
-		while(i<caracter.length){
-			if(Character.isDigit(caracter[i])){	
 	
-				numeros.add(Double.parseDouble(String.valueOf(caracter[i])));
-			}else if(Character.isLetter(caracter[i])){
+	/***************************************************
+	* Pre: Este metodo calculara el peso relativo a cada elemento dentro del compuesto.
+	* 		Ej: Si anteriormente se ingreso "H2 O", calculara el peso de H2 y el peso de O 
+	* 			para que luego el metodo "pesoMolecularTotal" pueda sumarlos.
+	* 
+	* Post: Se obtiene el peso molecular del elemento del compuesto.
+	* 
+	* @Param elementoDelCompuesto: Elemento del cual se quiere calcular el peso.
+	*
+	***************************************************/
+	private double calcularPeso(String elementoDelCompuesto){
+		
+		char[] listaOrigen = elementoDelCompuesto.toCharArray();
+		int i = 0;
+		int PM = 0;
+		StringBuilder constructor = new StringBuilder();
+		String simboloCompuestoIngresado = null;
+		double resultado = 0.0;
+		double auxiliar = 0.0;
+		
+		while(i<=listaOrigen.length-1){
 			
-				letras.add(caracter[i]);
+			if(Character.isLetter(listaOrigen[i])){
+								
+				if((i+1)<=listaOrigen.length-1){
+					
+					//Si el siguiente caracter al que estamos es una letra y es minúscula: 
+					if(Character.isLetter(listaOrigen[i+1]) && Character.isLowerCase(listaOrigen[i+1])){
+						
+						//Armo el simbolo del compuesto.
+						simboloCompuestoIngresado = constructor.append(listaOrigen[i]).append(listaOrigen[i+1]).toString();
+						i=i+2;
+						
+						if(i<=listaOrigen.length-1){
+						
+							//Si el siguiente caracter es un digito:
+							if(Character.isDigit(listaOrigen[i])){
+								
+								//multiplico el digito por el numero masico.
+								PM = Integer.parseInt(Character.toString(listaOrigen[i]));
+								
+								auxiliar = this.getNumMasico(simboloCompuestoIngresado)*PM;
+							}
+							
+						}else{
+							
+							//si no es un digito, sumo el numero masico.
+							auxiliar = this.getNumMasico(simboloCompuestoIngresado);
+						}
+					
+					}else if(Character.isDigit(listaOrigen[i+1])){
+						
+						auxiliar = this.getNumMasico(Character.toString(listaOrigen[i]))* Integer.parseInt(Character.toString(listaOrigen[i+1]));
+						
+					}else{
+						
+						auxiliar = this.getNumMasico(Character.toString(listaOrigen[i]));
+					}
+					
+				}else{
+					
+					auxiliar = this.getNumMasico(Character.toString(listaOrigen[i]));
+				}
+				
+				resultado = resultado + auxiliar;
 			}
+			
 			i++;
 		}
-		
-		char[] simboloArray = new char[letras.size()];
-		int j = 0;
-		
-		//Vuelvo a armar el String del simbolo para buscar su numeroMasico en la lista.
-		while(j<letras.size()){
-			
-			simboloArray[j] = letras.get(j);
-			j++;
-		}
-		String simbolo = String.valueOf(simboloArray); 
-		
-		//Finalmente resuelvo.
-		
-		resultado = numeros.get(0);
-		j=1;
-		while(j<numeros.size()){
-			
-			resultado = resultado * numeros.get(j);
-			j++;
-		}
-		//resultado = numeros multiplicado por el numero masico... me falta esto
 		
 		return resultado;
 	}
 	
-	public double pesoMolecular(String molecula){
-		
-		return this.sumarUnElemento(molecula);
-		
-	}
 	
-	public static void main(String[] args) {
+	/***************************************************
+	* Pre: Los elementos del componente ingresado tiene que estar separado
+	* 		por un espacio. Ej: H2O sera ingresado como "H2 O".
+	* 
+	* Post: Se obtiene el peso molecular de todo el compuesto.
+	*
+	*@Param molecula: Compuesto del cual se quiere calcular el peso molecular.
+	*
+	***************************************************/
+	public double pesoMolecularTotal(String molecula){
 		
-		PesosMoleculares uno = new PesosMoleculares();
-		double result = uno.pesoMolecular("0.5Fe2");
+		double resultado = 0.0;
 		
-		System.out.println(result);
+		String[] componentes = molecula.split(" ");
+		 
+		for (int i = 0; i < componentes.length; i++) {
+			
+			resultado = resultado + this.calcularPeso(componentes[i]);
+		}
+		
+		return resultado;
 	}
+
 }
 
