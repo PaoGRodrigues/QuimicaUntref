@@ -4,6 +4,7 @@ public class ReactivoLimitante {
 	
 	private PesosMoleculares calculador;
 	final double litrosUnMol = 22.4;
+	private double cantidadReactivoLimitante;
 	
 	private Reaccion reaccionActual;
 	
@@ -11,21 +12,29 @@ public class ReactivoLimitante {
 		
 		this.reaccionActual = reaccionActual;
 		this.calculador = new PesosMoleculares();
+		this.cantidadReactivoLimitante = 0;
 	}
 	
-	public String reactivoLimitante(double gramosReactivo){
+	public String reactivoLimitante(double gramosReactivo1, double gramosReactivo2){
 		
 		String reactivoLimitante;
 		
-		double reaccionReactivo2 = (this.calcularPureza(gramosElemento, pureza) * reactivo2) / reactivo1;
+		this.cantidadReactivoLimitante = (gramosReactivo1 * gramosReactivo2) / gramosReactivo2;
 		
-		if (reaccionReactivo2 < purezaReactivo2) {
-//			reactivoLimitante = reactivo2;
+		if (this.cantidadReactivoLimitante < gramosReactivo2) {
+			reactivoLimitante = this.reaccionActual.getReactivo2();
 		} else {
-//			reactivoLimitante = reactivo1;
+			reactivoLimitante = this.reaccionActual.getReactivo1();
 		}
+		
+		return reactivoLimitante;
 	}
 	
+	public double getCantidadReactivoLimitante(){
+		
+		return this.cantidadReactivoLimitante;
+	}
+
 	/***************************************************
 	* Pre: el porcentaje tiene que ser un valor entre 0-100 y los gramos del elemento tienen que ser mayores a 0.
 	* 
@@ -35,7 +44,7 @@ public class ReactivoLimitante {
 	* @Param pureza: porcentaje de Pureza del reactivo.
 	*
 	***************************************************/
-	private double calcularPureza(double gramosElemento, double pureza){
+	public double calcularPureza(double gramosElemento, double pureza){
 		return (pureza * gramosElemento)/100;
 	}
 
@@ -49,7 +58,7 @@ public class ReactivoLimitante {
 	* @Param elemento: elemento del cual se quiere calcular la cantidad de moles en dicha cantidad de gramos.
 	*
 	***************************************************/
-	private double molPorGramos(double gramosElemento, String elemento){
+	public double molPorGramos(double gramosElemento, String elemento){
 		return (gramosElemento/calculador.pesoMolecularTotal(elemento));
 	}
 	
@@ -62,7 +71,7 @@ public class ReactivoLimitante {
 	* @Param molesElemento: moles del reactivo/producto.
 	*
 	***************************************************/
-	private double litrosDeElementoMoles(double molesElemento) {
+	public double litrosDeElementoMoles(double molesElemento) {
 		return (molesElemento*this.litrosUnMol);
 	}
 	
@@ -76,7 +85,7 @@ public class ReactivoLimitante {
 	* @Param PMElemento: peso molecular del elemento.
 	*
 	***************************************************/
-	private double litrosDeElementoGramos(double gramosElemento, String elemento){
+	public double litrosDeElementoGramos(double gramosElemento, String elemento){
 		return(gramosElemento*this.litrosUnMol)/calculador.pesoMolecularTotal(elemento);
 	}
 	

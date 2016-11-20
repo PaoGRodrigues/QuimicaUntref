@@ -52,4 +52,46 @@ public class Reaccion {
 		
 		return this.D*calculador.pesoMolecularTotal(this.producto2);
 	}
+
+
+	public String getReactivo1() {
+		return reactivo1;
+	}
+
+
+	public void setReactivo1(String reactivo1) {
+		this.reactivo1 = reactivo1;
+	}
+
+
+	public String getReactivo2() {
+		return reactivo2;
+	}
+
+
+	public void setReactivo2(String reactivo2) {
+		this.reactivo2 = reactivo2;
+	}
+
+
+	public String getProducto1() {
+		return producto1;
+	}
+
+
+	public void setProducto1(String producto1) {
+		this.producto1 = producto1;
+	}
+
+
+	public String getProducto2() {
+		return producto2;
+	}
+
+
+	public void setProducto2(String producto2) {
+		this.producto2 = producto2;
+	}
+	
+	
 }
