@@ -57,6 +57,42 @@ public class PesosMoleculares {
 		this.elementos2.add(39, new Elemento("Y","ITRIO", 88.905));
 		this.elementos2.add(40, new Elemento("Zr","CIRCONIO", 91.22));
 		this.elementos2.add(41, new Elemento("Nb","NIOBIO", 92.906));
+		this.elementos2.add(42, new Elemento("Mo","MOLIBDENO", 95.94));
+		this.elementos2.add(43, new Elemento("Tc","TECNECIO", 98.90));
+		this.elementos2.add(44, new Elemento("RU","RUTENIO", 101.07));
+		this.elementos2.add(45, new Elemento("Rh","RODIO", 102.905));
+		this.elementos2.add(46, new Elemento("Pd","PALADIO", 106.40));
+		this.elementos2.add(47, new Elemento("Ag","PLATA", 107.870));
+		this.elementos2.add(48, new Elemento("Cd","CADMIO", 112.40));
+		this.elementos2.add(49, new Elemento("In","INDIO", 114.82));
+		this.elementos2.add(50, new Elemento("Sn","ESTAÑO", 92.906));
+		this.elementos2.add(51, new Elemento("Sb","ANTIMONIO", 121.75));
+		this.elementos2.add(52, new Elemento("Te","TELURIO", 127.60));
+		this.elementos2.add(53, new Elemento("I","YODO", 126.904));
+		this.elementos2.add(54, new Elemento("Xe","XENON", 131.30));
+		this.elementos2.add(55, new Elemento("Cs","CESIO", 132.905));
+		this.elementos2.add(56, new Elemento("Ba","BARIO", 137.34));
+		// [57/71] Serie de lantanidos
+		this.elementos2.add(72, new Elemento("Hf","HAFNIO", 178.49));
+		this.elementos2.add(73, new Elemento("Ta","TANTALIO", 180.948));
+		this.elementos2.add(74, new Elemento("W","WOLFRAMIO", 183.85));
+		this.elementos2.add(75, new Elemento("Re","RENIO", 186.2));
+		this.elementos2.add(76, new Elemento("Os","OSMIO", 190.2));
+		this.elementos2.add(77, new Elemento("Ir","IRIDIO", 192.2));
+		this.elementos2.add(78, new Elemento("Pt","PLATINO", 195.09));
+		this.elementos2.add(79, new Elemento("Au","ORO", 196.967));
+		this.elementos2.add(80, new Elemento("Hg","MERCURIO", 200.59));
+		this.elementos2.add(81, new Elemento("Tl","TALIO", 204.37));
+		this.elementos2.add(82, new Elemento("Pb","PLOMO", 207.19));
+		this.elementos2.add(83, new Elemento("Bi","BISMUTO", 208.98));
+		this.elementos2.add(84, new Elemento("Po","POLONIO", 210));
+		this.elementos2.add(85, new Elemento("At","ASTATO", 210));
+		this.elementos2.add(86, new Elemento("Rn","RADON", 222));
+		this.elementos2.add(87, new Elemento("Fr","FRANCIO", 223));
+		this.elementos2.add(88, new Elemento("Ra","RADIO", 226));
+		// [89/103] Serie de actánidos
+		// [104/120] Elementos que no se usan
+		// [121/152] Serie de superactánidos
 	}
 	
 	
