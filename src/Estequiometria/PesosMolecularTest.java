@@ -63,4 +63,36 @@ public class PesosMolecularTest {
 		double esperado = 2.005;
 		assertEquals(esperado, resultado, 0.5);
 	}
+	
+	@Test
+	public void testCaluclarCompuesto5(){
+		
+		double resultado = calculadora.pesoMolecularTotal("H2 Cl2");
+		double esperado = 1.00797*2 + 35.453*2;
+		assertEquals(esperado, resultado, 0.0);
+	}
+	
+	@Test
+	public void testCaluclarCompuesto6(){
+		
+		double resultado = calculadora.pesoMolecularTotal("(O H)2");
+		double esperado = (15.9994 + 1.00797)*2;
+		assertEquals(esperado, resultado, 0.0);
+	}
+	
+	@Test
+	public void testCaluclarCompuesto7(){
+		
+		double resultado = calculadora.pesoMolecularTotal("H O (O H)2");
+		double esperado = 51.02211;
+		assertEquals(esperado, resultado, 0.0);
+	}
+	
+	@Test
+	public void testCaluclarCompuesto8(){
+		
+		double resultado = calculadora.pesoMolecularTotal("2 H O (O H)2");
+		double esperado = 2*51.02211;
+		assertEquals(esperado, resultado, 0.0);
+	}
 }

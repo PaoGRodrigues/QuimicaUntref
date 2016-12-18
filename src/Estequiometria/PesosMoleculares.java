@@ -73,7 +73,7 @@ public class PesosMoleculares {
 		this.elementos2.add(55, new Elemento("Cs","CESIO", 132.905));
 		this.elementos2.add(56, new Elemento("Ba","BARIO", 137.34));
 		// [57/71] Serie de lantanidos
-		this.elementos2.add(72, new Elemento("Hf","HAFNIO", 178.49));
+		/**this.elementos2.add(72, new Elemento("Hf","HAFNIO", 178.49));
 		this.elementos2.add(73, new Elemento("Ta","TANTALIO", 180.948));
 		this.elementos2.add(74, new Elemento("W","WOLFRAMIO", 183.85));
 		this.elementos2.add(75, new Elemento("Re","RENIO", 186.2));
@@ -89,7 +89,7 @@ public class PesosMoleculares {
 		this.elementos2.add(85, new Elemento("At","ASTATO", 210));
 		this.elementos2.add(86, new Elemento("Rn","RADON", 222));
 		this.elementos2.add(87, new Elemento("Fr","FRANCIO", 223));
-		this.elementos2.add(88, new Elemento("Ra","RADIO", 226));
+		this.elementos2.add(88, new Elemento("Ra","RADIO", 226));*/
 		// [89/103] Serie de actánidos
 		// [104/120] Elementos que no se usan
 		// [121/152] Serie de superactánidos
@@ -191,17 +191,16 @@ public class PesosMoleculares {
 						
 						auxiliar = this.getNumMasico(Character.toString(listaOrigen[i]))* Integer.parseInt(Character.toString(listaOrigen[i+1]));
 						
-					}else{
-						
-						auxiliar = this.getNumMasico(Character.toString(listaOrigen[i]));
 					}
 					
 				}else{
+					
 					
 					auxiliar = this.getNumMasico(Character.toString(listaOrigen[i]));
 				}
 				
 				resultado = resultado + auxiliar;
+			
 			}
 			
 			i++;
@@ -210,6 +209,39 @@ public class PesosMoleculares {
 		return resultado;
 	}
 	
+	public double pesoOxidrilos(String elementoDelCompuesto){
+		
+		double resultado = 0.0;
+		
+		resultado = 15.9994 + 1.00797;
+		
+		char[] caracteres = elementoDelCompuesto.toCharArray();
+		
+		int i = 0;
+		while(i<caracteres.length-1){
+			
+			if(Character.isDigit(caracteres[i])){
+				
+				resultado = resultado * Integer.parseInt(Character.toString(caracteres[i]));
+			}
+			i++;
+		}
+		
+		return resultado;
+	}
+	
+	public int esNumero(String compuesto){
+		
+		char[] chars = compuesto.toCharArray();
+		int num = 0;;
+		
+		if(Character.isDigit(chars[0])){
+			
+			num = Integer.parseInt(Character.toString(chars[0]));
+		}
+		
+		return num;
+	}
 	
 	/***************************************************
 	* Pre: Los elementos del componente ingresado tiene que estar separado
@@ -225,10 +257,33 @@ public class PesosMoleculares {
 		double resultado = 0.0;
 		
 		String[] componentes = molecula.split(" ");
-		 
+		String oxidrilos = "";
+		int numero=0;
+		
 		for (int i = 0; i < componentes.length; i++) {
+				
+			if(componentes[i].contains("(")||componentes[i].contains(")")){
+				
+				oxidrilos = oxidrilos + componentes[i];
+				
+			}else if(esNumero(componentes[i]) != 0){
+				
+				numero = esNumero(componentes[i]);
+				
+			}else{
+				
+				resultado = resultado + this.calcularPeso(componentes[i]);
+			}
 			
-			resultado = resultado + this.calcularPeso(componentes[i]);
+			if(!oxidrilos.equals("")){
+				
+				resultado = resultado + pesoOxidrilos(oxidrilos);
+			}
+		}
+		
+		if(numero!=0){
+			
+			resultado = resultado*numero;
 		}
 		
 		return resultado;
